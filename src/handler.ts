@@ -9,6 +9,5 @@ export const promiseHandler: Handler = (event: any, context: Context): Promise<b
 export const callbackHandler: Handler = (event: any, context: Context, callback: Callback): void => {
   console.log('Event: ' + JSON.stringify(event));
   console.log('Context: ' + JSON.stringify(context));
-  console.log('Callback: ' + JSON.stringify(callback));
   callback(null, true);
 };

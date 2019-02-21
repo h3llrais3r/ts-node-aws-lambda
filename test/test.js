@@ -8,17 +8,18 @@ var jsonPayload = {
 
 // Define tests
 
-const testPromise = () => {
-  lambdaLocal.execute({
-    event: jsonPayload,
-    lambdaPath: './dist/handler.js',
-    lambdaHandler: 'promiseHandler',
-    timeoutMs: 3000
-  }).then(function (done) {
-    console.log('Promise done: ' + done);
-  }).catch(function (err) {
-    console.log('Promise error' + err);
-  });
+const testPromise = async () => {
+  try {
+    const data = await lambdaLocal.execute({
+      event: jsonPayload,
+      lambdaPath: './dist/handler.js',
+      lambdaHandler: 'promiseHandler',
+      timeoutMs: 3000
+    });
+    console.log('Promise done: ' + data);
+  } catch (err) {
+    console.log('Promise error: ' + err);
+  };
 };
 
 const testCallback = () => {
@@ -39,14 +40,8 @@ const testCallback = () => {
 
 // Run tests
 const runTests = async () => {
-  console.log('-------------')
-  console.log('Test Promise');
-  console.log('-------------')
   await testPromise();
-  console.log('-------------')
-  console.log('Test callback');
-  console.log('-------------')
-  await testCallback();
+  testCallback();
 };
 
 runTests();
